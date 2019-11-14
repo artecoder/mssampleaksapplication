@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<grammar xmlns="http://www.w3.org/2001/06/grammar" mode="voice" root="main">
+
+    <rule id="main" scope="public">
+
+        <item repeat="1-16">
+            <ruleref uri="#digit">
+                <tag>out.concept = out.concept + rules.digit;</tag>
+            </ruleref>
+        </item>
+    </rule>
+
+    <rule id="digit">
+        <one-of>
+            <item>0</item>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            <item>4</item>
+            <item>5</item>
+            <item>6</item>
+            <item>7</item>
+            <item>8</item>
+            <item>9</item>
+        </one-of>
+    </rule>
+</grammar>

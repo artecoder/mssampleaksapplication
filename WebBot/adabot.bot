@@ -1,0 +1,26 @@
+{
+    "name": "adabot",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:4079/api/messages",
+            "id": "cdd4afa0-6760-11e9-859b-c927cb9c9fbe",
+            "name": "development"
+        },
+        {
+          "appId": "7022acd9-b0f8-4495-baee-e0f67ec10a96",
+          "appPassword": "LFPTDGYs31N4Zp+XfrD24g==!gdkH5xRRQcIum0qPWu5wo6CAgTMfbhlB2yxQtxBigbs=",
+          "endpoint": "https://adachatbot.azurewebsites.net/api/messages",
+          "type": "endpoint",
+          "name": "production",
+          "id": "4"
+        }
+    ],
+    "padlock": "B4N8riBbzTSpXSEF4OMLiA==!do0I7PJOtN0MClDHOyVUvLZwlvfFPQMlnc/+hmTBmTz/2A2CzKo+J0izowgBWxo+",
+    "version": "2.0",
+    "overrides": null,
+    "path": "C:\\Users\\MichaelStibenParedes\\BIGVIEW SAS\\Gestion Documental - Gestión Comercial\\4. Partners\\Microsoft\\Sows\\ICBF\\DespliegueBot\\adabot.bot"
+}

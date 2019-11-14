@@ -1,0 +1,99 @@
+﻿<Page
+    x:Class="SpeechApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SpeechApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignWidth="1292" d:DesignHeight="1070.5">
+
+    <Grid>
+        <RelativePanel Margin="41,155,49,10">
+            <RelativePanel.Resources>
+                <Style TargetType="AppBarButton">
+                    <Setter Property="IsCompact" Value="True"/>
+                </Style>
+            </RelativePanel.Resources>
+            <AppBarButton x:Name="openFileButton" Icon="OpenFile"
+                  Click="OpenButton_Click" ToolTipService.ToolTip="Open file"/>
+            <AppBarButton x:Name="saveButton" Icon="Save" Click="SaveButton_Click"
+                  ToolTipService.ToolTip="Save file"
+                  RelativePanel.RightOf="openFileButton" Margin="8,0,0,0"/>
+
+            <AppBarSeparator Name="separatorBar" Margin="8,0,0,0" RelativePanel.RightOf="saveButton" ></AppBarSeparator>
+            <TextBlock x:Name="textBlockMicro" Margin="8,14,0,0" RelativePanel.RightOf="separatorBar" >Microfono:</TextBlock>
+            <ComboBox x:Name="comboMicrofono" Margin="30,10,0,0" RelativePanel.RightOf="textBlockMicro" Width="250"></ComboBox>
+            <TextBlock x:Name="textBlockEntrevista" Margin="8,14,0,0" RelativePanel.RightOf="comboMicrofono" >Entrevista:</TextBlock>
+            <TextBox x:Name="txtNombreEntrevista" Margin="30,10,0,0" RelativePanel.RightOf="textBlockEntrevista"  RelativePanel.LeftOf="boldButton"></TextBox>
+
+            <AppBarButton x:Name="boldButton" Icon="Bold" Click="BoldButton_Click" ToolTipService.ToolTip="Bold"
+                  RelativePanel.LeftOf="italicButton"/>
+            <AppBarButton x:Name="italicButton" Icon="Italic" Click="ItalicButton_Click"
+                  ToolTipService.ToolTip="Italic" RelativePanel.LeftOf="underlineButton"/>
+            <AppBarButton x:Name="underlineButton" Icon="Underline" Click="UnderlineButton_Click"
+                  ToolTipService.ToolTip="Underline" RelativePanel.AlignRightWithPanel="True"/>
+            
+            <RichEditBox x:Name="editor" Height="176" RelativePanel.Below="openFileButton"
+                 RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"  FontSize="12"/>
+            
+
+        </RelativePanel>
+
+       
+        <RelativePanel >
+            <Button x:Name="btnGrabarPausar" Margin="56,422,0,0" Click="Button_ClickAsync" Height="220">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon x:Name="dictationSymbolIcon" Symbol="Microphone"/>
+                    <TextBlock x:Name="DictationButtonText" Text=" Iniciar" />
+                </StackPanel>
+            </Button>
+            <RadioButton x:Name="radioInterlocutor1" Content="" Margin="206,422,0,0" VerticalAlignment="Top" IsChecked="True" Width="30"/>
+        <TextBox x:Name="txtInterlocutor1" Text="Entrevistador" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="235,422,0,0" Width="138" Height="33"/>
+        <RadioButton x:Name="radioInterlocutor2" Content="" Margin="206,471,0,0" VerticalAlignment="Top" IsChecked="false" Width="41"/>
+        <TextBox x:Name="txtInterlocutor2" Text="Entrevistado" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="235,471,0,0" Width="138" Height="33"/>
+        <RadioButton x:Name="radioInterlocutor3" Content="" Margin="206,521,0,0" IsChecked="False" Width="29"/>
+        <TextBox x:Name="txtInterlocutor3" Text="-" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="235,521,0,0" Width="138" Height="33"/>
+        <RadioButton x:Name="radioInterlocutor4" Content="" Margin="206,566,0,0" VerticalAlignment="Top" IsChecked="false" Width="41"/>
+        <TextBox x:Name="txtInterlocutor4" Text="-" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="235,566,0,0" Width="138" Height="33"/>
+        <RadioButton x:Name="radioInterlocutor5" Content="" Margin="206,608,0,0" VerticalAlignment="Top" IsChecked="false" Width="41"/>
+        <TextBox x:Name="txtInterlocutor5" Text="-" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="235,608,0,0" Width="138" Height="33"/>
+         
+            
+        </RelativePanel>
+        <RelativePanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <ListView x:Name="listAudios" Margin="400,400,0,0" Height="250" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <RelativePanel Margin="0,0,0,0" Width="700">
+                    <Button x:Name="sound20191113100215_wav" Content="sound20191113095430.wav" RequestedTheme="Default" Click="Button_Click" HorizontalAlignment="Left" ></Button>
+                    <Button x:Name="delete_sound20191113100215_wav" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" ToolTipService.ToolTip="Eliminar audio y transcripción">
+                        <StackPanel Orientation="Horizontal">
+                                <SymbolIcon x:Name="borrar_sound20191113100215_icon" Symbol="Delete"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="rename_sound20191113100215_wav" RelativePanel.LeftOf="delete_sound20191113100215_wav"  ToolTipService.ToolTip="Cambiar nombre">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon x:Name="rename_sound20191113100215_icon" Symbol="Comment"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="stt_sound20191113100215_wav" RelativePanel.LeftOf="rename_sound20191113100215_wav"  ToolTipService.ToolTip="Iniciar nueva transcripción">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon x:Name="stt_sound20191113100215_icon" Symbol="Globe"/>
+                        </StackPanel>
+                    </Button>
+                </RelativePanel>
+            </ListView>
+            <MediaElement x:Name="mediaElement1" AudioDeviceType="Multimedia" AreTransportControlsEnabled="True" AudioCategory="Media" >
+                <MediaElement.TransportControls>
+                    <MediaTransportControls Name="foregroundMediaControl" HorizontalAlignment="Left" Margin="400,0,0,0" Width="840" VerticalAlignment="Bottom" />
+                </MediaElement.TransportControls>
+            </MediaElement>
+        </RelativePanel>
+        <RelativePanel>
+            <Image HorizontalAlignment="Left" Height="146" VerticalAlignment="Top" Width="146" Source="/Assets/adaLogo.png" Stretch="Fill" RelativePanel.AlignLeftWithPanel="True"/>
+            <Image HorizontalAlignment="Right" Height="106"  VerticalAlignment="Top" Width="197" Source="/Assets/logoicbf.png" Stretch="Fill" RelativePanel.AlignRightWithPanel="True"/>
+            
+
+
+        </RelativePanel>
+    </Grid>
+</Page>
