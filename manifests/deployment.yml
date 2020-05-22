@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "icbflabs"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "icbflabs"
+    spec:
+      containers:
+        - name: "icbflabs"
+          image: "icbflabs.azurecr.io/icbflabs"
+          ports:
+          - containerPort: 80
