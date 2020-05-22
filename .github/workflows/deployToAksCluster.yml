@@ -1,16 +1,49 @@
-apiVersion: apps/v1beta1 
-kind: Deployment
-metadata:
-	name: mssamplesbook
-spec:   
-		replicas: 1   
-		template:
-			metadata:
-				labels:
-					app: mssample-kub-app     
-			spec:       
-				containers:         
-					- mane: mssample-services-app           
-					image: icbflabs.azurecr.io/mssampleaksapplication:v1           
-					ports:             
-						- containerPort: 80
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: icbflabs.azurecr.io
+        username: ${{ secrets.acr_icbflabs_username }}
+        password: ${{ secrets.acr_icbflabs_password }}
+    
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/MSSampleAKSApplication" -f  "MSSampleAKSApplication/Dockerfile" -t icbflabs.azurecr.io/icbflabs:${{ github.sha }}
+        docker push icbflabs.azurecr.io/icbflabs:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      with:
+         kubeconfig: ${{ secrets.aks_icbflabs_kubeConfig }}
+      id: login
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep icbflabs0398 | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace icbflabs0398`
+        fi
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: icbflabs0398
+        container-registry-url: icbflabs.azurecr.io
+        container-registry-username: ${{ secrets.acr_icbflabs_username }}
+        container-registry-password: ${{ secrets.acr_icbflabs_password }}
+        secret-name: icbflabsdockerauth
+       
+    - uses: azure/k8s-deploy@v1
+      with:
+        namespace: icbflabs0398
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          icbflabs.azurecr.io/icbflabs:${{ github.sha }}
+        imagepullsecrets: |
+          icbflabsdockerauth
