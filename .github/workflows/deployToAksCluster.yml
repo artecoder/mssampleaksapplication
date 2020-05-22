@@ -1,0 +1,16 @@
+apiVersion: apps/v1beta1 
+kind: Deployment
+metadata:
+	name: mssamplesbook
+spec:   
+		replicas: 1   
+		template:
+			metadata:
+				labels:
+					app: mssample-kub-app     
+			spec:       
+				containers:         
+					- mane: mssample-services-app           
+					image: icbflabs.azurecr.io/mssampleaksapplication:v1           
+					ports:             
+						- containerPort: 80
